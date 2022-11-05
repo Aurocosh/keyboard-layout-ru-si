@@ -1,0 +1,18 @@
+    <layout>
+      <configItem>
+        <name>rusi</name>
+        <shortDescription>rusi</shortDescription>
+        <description>Russian SI</description>
+        <languageList>
+          <iso639Id>rus</iso639Id>
+        </languageList>
+      </configItem>
+      <variantList>
+        <variant>
+          <configItem>
+            <name>phonetic</name>
+            <description>Russian SI (phonetic)</description>
+          </configItem>
+        </variant>
+      </variantList>
+    </layout>
