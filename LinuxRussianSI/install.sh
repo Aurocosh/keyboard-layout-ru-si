@@ -6,7 +6,8 @@ if [ $(id -u) != 0 ]; then
    exit
 fi
 
-X_COMPOSE_FILE=~/.XCompose
+USER_HOME="$(getent passwd $SUDO_USER | cut -d: -f6)"
+X_COMPOSE_FILE=$USER_HOME/.XCompose
 SYMBOL_FILE=/usr/share/X11/xkb/symbols/rusi
 EVDEV_XML=/usr/share/X11/xkb/rules/evdev.xml
 
@@ -16,7 +17,7 @@ if ! test -f "$X_COMPOSE_FILE"; then
   echo "Created XCompose file"
 fi
 
-if grep -Fq "include \"%L\"" $X_COMPOSE_FILE ; then
+if grep -Fq "include \"%L\"" $X_COMPOSE_FILE; then
   echo "Skipped XCompose include write"
 else
   echo "include \"%L\"   # import the default Compose file for your locale\n\n" >> $X_COMPOSE_FILE
