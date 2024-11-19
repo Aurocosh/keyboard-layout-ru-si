@@ -1,9 +1,17 @@
 
 ## Keyboard layout
 
-Custom Cyrillic phonetic layout based on the standard QWERTY keyboard layout. Each Latin key corresponds to a cyrillic letter with a similar sound. Cyrillic alphabet has more letters than Latin, so some of them are represented as a dead key combination. For example to enter 'ю' two keys need to be pressed: key 'j' followed 'u'.
+Custom Cyrillic phonetic layout based on the standard QWERTY keyboard layout. Each Latin key corresponds to a cyrillic letter with a similar sound. Cyrillic alphabet has more letters than Latin, so some of them are represented as a dead key combination. For example the letter 'ю' requires two keys to be pressed: key 'j' followed 'u'.
 
-Layout created with Microsoft Keyboard Layout Creator.
+Windows keyboard layout is created with Microsoft Keyboard Layout Creator.
+
+## Keyboard layout
+![Layout normal](http://rawcdn.githack.com/Aurocosh/keyboard-layout-ru-si/master/img/Ru_SI.jpg)
+
+## Keyboard layout (Shift)
+![Layout shift](http://rawcdn.githack.com/Aurocosh/keyboard-layout-ru-si/master/img/Ru_SIShft.jpg)
+
+## Keys and combinations
 
 |Target symbol|Key / Combination  |
 |--|--|
