@@ -1,5 +1,5 @@
 
-## Keyboard layout
+## Description
 
 Custom Cyrillic phonetic layout based on the standard QWERTY keyboard layout. Each Latin key corresponds to a cyrillic letter with a similar sound. Cyrillic alphabet has more letters than Latin, so some of them are represented as a dead key combination. For example the letter 'ю' requires two keys to be pressed: key 'j' followed 'u'.
 
