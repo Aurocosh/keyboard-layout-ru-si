@@ -1,0 +1,9 @@
+Package: kl-ru-si-1.0.0-1
+Version: 1.0
+Section: x11
+Priority: optional
+Architecture: all
+Maintainer: Sergey Ivchenko <aurocosh@gmail.com>
+Description: Cyrillic phonetic layout
+ Custom phonetic cyrillic keyboard layout based on the standard QWERTY keyboard layout.
+Depends: xkb-data,xmlstarlet

@@ -1,0 +1,51 @@
+#!/bin/bash
+set -e
+
+EVDEV_XML=/usr/share/X11/xkb/rules/evdev.xml
+EVDEV_LST=/usr/share/X11/xkb/rules/evdev.lst
+
+# Create a backup of the evdev.xml and the evdev.lst
+cp $EVDEV_XML $EVDEV_XML.backup."$(date +%Y%m%d-%H%M%S)"
+cp $EVDEV_LST $EVDEV_LST.backup."$(date +%Y%m%d-%H%M%S)"
+
+# Inject new layout xml data into the evdev.xml
+# Data inside should look like this
+# <layout>
+#   <configItem>
+#     <name>ru-si</name>
+#     <shortDescription>ru</shortDescription>
+#     <description>Russian Phonetic SI</description>
+#     <languageList>
+#       <iso639Id>rus</iso639Id>
+#     </languageList>
+#   </configItem>
+# </layout>
+xmlstarlet ed -L \
+  -d '/xkbConfigRegistry/layoutList/layout[configItem/name="ru-si"]' \
+  -s '/xkbConfigRegistry/layoutList' -t elem -n layoutTMP -v '' \
+  -s '//layoutTMP' -t elem -n configItem -v '' \
+  -s '//layoutTMP/configItem' -t elem -n name -v 'ru-si' \
+  -s '//layoutTMP/configItem' -t elem -n shortDescription -v 'ru' \
+  -s '//layoutTMP/configItem' -t elem -n description -v 'Russian - Phonetic - SI' \
+  -s '//layoutTMP/configItem' -t elem -n languageList -v '' \
+  -s '//layoutTMP/configItem/languageList' -t elem -n iso639Id -v 'rus' \
+  -r '//layoutTMP' -v layout \
+  $EVDEV_XML
+
+# Add a line for a new layout into the evdev.lst
+if ! grep -Fq "ru-si" $EVDEV_LST ; then
+  sudo sed -i '/^! layout/a\
+  ru-si           Custom Cyrillic phonetic layout based on the QWERTY' $EVDEV_LST
+else
+  echo "Layout is present in $EVDEV_LST"
+fi
+
+# Rebuild XKB rules
+if command -v udevadm >/dev/null; then
+    udevadm trigger --subsystem-match=input --action=change || true
+fi
+
+# Update XKB cache (important for GNOME, KDE, etc.)
+dpkg-reconfigure xkb-data || true
+
+exit 0

@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+EVDEV_XML=/usr/share/X11/xkb/rules/evdev.xml
+EVDEV_LST=/usr/share/X11/xkb/rules/evdev.lst
+
+# Remove the layout from evdev.xml
+xmlstarlet ed -L \
+    -d '/xkbConfigRegistry/layoutList/layout[configItem/name="ru-si"]' \
+    $EVDEV_XML
+
+# Remove layout line from the evdev.lst
+sed -i '/^[[:space:]]*ru-si[[:space:]]\+Custom Cyrillic phonetic layout based on the QWERTY$/d' $EVDEV_LST
+
+# Rebuild XKB rules
+if command -v udevadm >/dev/null; then
+    udevadm trigger --subsystem-match=input --action=change || true
+fi
+
+dpkg-reconfigure xkb-data || true
+
+exit 0
